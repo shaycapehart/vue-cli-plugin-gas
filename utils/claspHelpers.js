@@ -1,5 +1,7 @@
 const { execSync } = require('child_process');
+const fs = require('fs');
 const path = require('path');
+const CLASP_PATH = path.join(__dirname, 'node_modules', '@google', 'clasp');
 const { info, warn } = require('./logHelpers');
 const { mkdir, clearDir, moveFiles, copyFiles, deleteFiles, getJson, setJson } = require('./fileHelpers');
 
@@ -50,7 +52,7 @@ const getPaths = (api) => {
 
 const isInstalled = () => {
   try {
-    const raw = getJson(require.resolve('@google/clasp/package.json')).version;
+    const raw = JSON.parse(fs.readFileSync(path.join(CLASP_PATH, 'package.json'), 'utf8')).version;
     let [major, minor, patch] = raw.split('.').map(n => parseInt(n, 10));
     let min = '2.3.0';
     let isCompatible = major > 2 || (major === 2 && minor >= 3);
