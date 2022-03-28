@@ -1,5 +1,7 @@
 const { execSync } = require('child_process');
+const fs = require('fs');
 const path = require('path');
+const CLASP_PATH = path.join(__dirname, 'node_modules', '@google', 'clasp');
 const { info, warn } = require('./logHelpers');
 const { mkdir, clearDir, moveFiles, copyFiles, deleteFiles, getJson, setJson } = require('./fileHelpers');
 
